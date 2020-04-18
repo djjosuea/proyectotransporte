@@ -22,7 +22,7 @@ include_once("Horario\conexion.php");
     <select id="select_origen" style="color:black">
       <option value="" selected="selected">Origen</option>
       <?php
-        $sql="SELECT comunidad, estado, id from lugares order by comunidad";
+        $sql="SELECT comunidad, estado, id from lugar order by comunidad";
         $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
         while($rows = mysqli_fetch_assoc($resultset)){ ?>
           <option value="<?php echo $rows["id"];?>"><?php echo $rows["comunidad"] . " " . $rows["estado"];?></option>
@@ -34,7 +34,7 @@ include_once("Horario\conexion.php");
     <select id="select_destino" style="color:black">
       <option value="" selected="selected">Destino</option>
       <?php
-        $sql="SELECT comunidad, estado, id from lugares order by comunidad";
+        $sql="SELECT comunidad, estado, id from lugar order by comunidad";
         $resultset = mysqli_query($conn, $sql) or die("database error". mysqli_error($conn));
         while($rows = mysqli_fetch_assoc($resultset)){ ?>
           <option value="<?php echo $rows["id"];?>"><?php echo $rows["comunidad"] . " " . $rows["estado"];?></option>

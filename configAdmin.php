@@ -550,16 +550,16 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <br><br>
-                            <div id="add-Lugares">
+                            <div id="add-lugar">
                                 <h2 class="text-info text-center"><small><i class="fa fa-plus"></i></small>&nbsp;&nbsp;Agregar categoría</h2>
-                                <form action="process/regcategori.php" method="post" role="form">
+                                <form action="process/regLugar.php" method="post" role="form">
                                     <div class="form-group">
                                         <label>Comunidad</label>
                                         <input class="form-control" type="text" name="lugar-com" placeholder="Nombre de la comunidad" maxlength="15" required="">
                                     </div>
                                     <div class="form-group">
                                         <label>Estado</label>
-                                        <input class="form-control" type="text" name="lugar-estado" placeholder="Estado en que se encuentra" maxlength="15" required="">
+                                        <input class="form-control" type="text" name="lugar-estado" placeholder="Estado en que se encuentra" maxlength="15"> <!-- required=""-->
                                     </div>
                                     <div class="form-group">
                                         <label>País</label>
@@ -569,27 +569,27 @@
                                         <button type="submit" class="btn btn-primary">Agregar lugar</button>
                                     </p>
                                     <br>
-                                    <div id="res-form-add-categori" style="width: 100%; text-align: center; margin: 0;"></div>
+                                    <div id="res-form-add-lugar" style="width: 100%; text-align: center; margin: 0;"></div>
                                 </form>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <br><br>
-                            <div id="del-categori">
-                                <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar una categoría</h2>
-                                <form action="process/delcategori.php" method="post" role="form">
+                            <div id="del-lugar">
+                                <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar un lugar</h2>
+                                <form action="process/dellugar.php" method="post" role="form">
                                     <div class="form-group">
                                         <label>Categorías</label>
-                                        <select class="form-control" name="categ-code">
+                                        <select class="form-control" name="lugar-code">
                                             <?php 
-                                                $categoriav=  ejecutarSQL::consultar("select * from categoria");
-                                                while($categv=mysql_fetch_array($categoriav)){
-                                                    echo '<option value="'.$categv['CodigoCat'].'">'.$categv['CodigoCat'].' - '.$categv['Nombre'].'</option>';
+                                                $lugares=  ejecutarSQL::consultar("select * from lugar");
+                                                while($lugar=mysql_fetch_array($lugares)){
+                                                    echo '<option value="'.$lugar['id'].'">'.$lugar['Comunidad'].' - '.$lugar['Estado'].' - '.$lugar['Pais'].'</option>';
                                                 }
                                             ?>
                                         </select>
                                     </div>
-                                    <p class="text-center"><button type="submit" class="btn btn-danger">Eliminar categoría</button></p>
+                                    <p class="text-center"><button type="submit" class="btn btn-danger">Eliminar lugar</button></p>
                                     <br>
                                     <div id="res-form-del-cat" style="width: 100%; text-align: center; margin: 0;"></div>
                                 </form>
