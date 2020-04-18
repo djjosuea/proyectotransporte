@@ -4,15 +4,10 @@ if($_GET['origen']){
     //seleccionar informacion de horarios y rutas
     $sql = "SELECT horario.id, hora, idruta, posicion, comunidad, estado, pais, cooperativa FROM horario 
             inner join ( 
-                SELECT *, id as idruta from ruta 
-                INNER JOIN ( 
+                SELECT *, id as idruta from ruta INNER JOIN ( 
                     select comunidad, estado, pais, id AS idlugar from lugares 
                 ) lugares 
-                ON ruta.id_lugar = lugares.idlugar
-                WHERE
-                    (SELECT posicion from ruta as rutaOrigen where rutaOrigen.id = ruta.id and rutaOrigen.id_lugar = /*el lugar de origen*/ " . $_GET['destino'] . ")
-                    <
-                    (SELECT posicion from ruta as rutaDestino where rutaDestino.id = ruta.id and rutaDestino.id_lugar = /*el lugar de destino*/ ". $_GET['destino'] .") 
+                WHERE ruta.id_lugar = lugares.idlugar
             ) horarioruta
             where horarioruta.idruta = horario.id_ruta
             ORDER BY horario.id, posicion";
