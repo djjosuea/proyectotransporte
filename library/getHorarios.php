@@ -1,6 +1,6 @@
 <?php
 include_once("configServer.php");
-if($_GET['origen'] & $_GET['destino']){
+if($_GET['origen'] and $_GET['destino']){
     $origen = $_GET['origen'];
     $destino = $_GET['destino'];
     //seleccionar informacion de horarios y rutas
