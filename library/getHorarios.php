@@ -40,5 +40,5 @@ if($_GET['origen'] and $_GET['destino']){
     $data .= "]}]";
     echo $data;
     exit;
-}
+} 
 ?>
