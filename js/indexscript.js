@@ -16,20 +16,20 @@ $(document).ready(function(){
                 url: './library/getHorarios.php',
                 method: "GET",
                 data: {origen, destino},
-                dataType: "json",
+                dataType: "text",
                 cache:false,
                 success: function(data){
                     if(data){
                         tableData = '';
-                        $.each(data, function(key, value) {
-                            tableData += "<tr>";
-                            tableData += "<th>" + value.id + "</th>";
-                            tableData += "<td>" + value.cooperativa + "</td>";
-                            tableData += "<td>" + value.ruta.toString() + "</td>";
-                            tableData += "<td>" + value.hora + "</td>";
-                            tableData += "</tr>";
-                        });
-                        $("#results_table").append(tableData);
+                        // $.each(data, function(key, value) {
+                        //     tableData += "<tr>";
+                        //     tableData += "<th>" + value.id + "</th>";
+                        //     tableData += "<td>" + value.cooperativa + "</td>";
+                        //     tableData += "<td>" + value.ruta.toString() + "</td>";
+                        //     tableData += "<td>" + value.hora + "</td>";
+                        //     tableData += "</tr>";
+                        // });
+                        // $("#results_table").append(tableData);
                         console.log(data);
                     } else {
                         //modificar interfaz adecuadamente
@@ -41,6 +41,5 @@ $(document).ready(function(){
                 }
             });
         }
-    }
-    
+    }    
   });
