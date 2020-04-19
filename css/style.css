@@ -192,8 +192,13 @@ footer{
 #del-prove,
 #add-admin,
 #del-admin,
-#del-pedido{
+#del-pedido,
+#add-horario,
+#del-horario,
+#add-lugar,
+#del-lugar{
     border: 1px solid #e0e1e1 !important;
     border-radius: 4px;
     padding: 10px;
 }
+

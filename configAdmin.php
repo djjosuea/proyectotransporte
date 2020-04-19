@@ -550,8 +550,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <br><br>
-                            <div id="add-lugar">
-                                <h2 class="text-info text-center"><small><i class="fa fa-plus"></i></small>&nbsp;&nbsp;Agregar categoría</h2>
+                            <div id="add-categori">
+                                <h2 class="text-info text-center"><small><i class="fa fa-plus"></i></small>&nbsp;&nbsp;Agregar Lugar</h2>
                                 <form action="process/regLugar.php" method="post" role="form">
                                     <div class="form-group">
                                         <label>Comunidad</label>
@@ -575,7 +575,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <br><br>
-                            <div id="del-lugar">
+                            <div id="del-categori">
                                 <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar un lugar</h2>
                                 <form action="process/dellugar.php" method="post" role="form">
                                     <div class="form-group">
@@ -642,24 +642,41 @@
                         </div>
                     </div>
                 </div>
-                                <!--==============================Panel Horarios===============================-->
-                                <div role="tabpanel" class="tab-pane fade" id="Horarios">
+                <!--==============================Panel Horarios===============================-->
+                <div role="tabpanel" class="tab-pane fade" id="Horarios">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <br><br>
                             <div id="add-categori">
-                                <h2 class="text-info text-center"><small><i class="fa fa-plus"></i></small>&nbsp;&nbsp;Agregar categoría</h2>
+                                <h2 class="text-info text-center"><small><i class="fa fa-plus"></i></small>&nbsp;&nbsp;Agregar Horario</h2>
                                 <form action="process/regcategori.php" method="post" role="form">
                                     <div class="form-group">
-                                        <label>Código</label>
-                                        <input class="form-control" type="text" name="categ-code" placeholder="Código de categoria" maxlength="9" required="">
+                                        <label>Cooperativa</label>
+                                        <input class="form-control" type="text" name="cooperativa" placeholder="Nombre de la cooperativa" maxlength="9" required="">
                                     </div>
                                     <div class="form-group">
-                                        <label>Nombre</label>
-                                        <input class="form-control" type="text" name="categ-name" placeholder="Nombre de categoria" maxlength="30" required="">
+                                        <label>Horario</label>
+                                        <input class="form-control" type="text" name="categ-name" placeholder="¿A qué hora salen buses?" maxlength="30" required="">
                                     </div>
                                     <div class="form-group">
-                                        <label>Descripción</label>
+                                        <label>Ruta</label>
+                                        <select class="form-control" name="lugares-ruta[]">
+                                            <?php 
+                                                $lugares = ejecutarSQL::consultar("select * from lugar");
+                                                while($lugar=mysql_fetch_array($lugares)){
+                                                    echo '<option value="'.$lugar['id'].'">'.$lugar['Comunidad'].' - '.$lugar['Estado'].' - '.$lugar['Pais'].'</option>';
+                                                }
+                                            ?>
+                                        </select>
+                                        <select class="form-control" name="lugares-ruta[]">
+                                            <?php 
+                                                $lugares = ejecutarSQL::consultar("select * from lugar");
+                                                while($lugar=mysql_fetch_array($lugares)){
+                                                    echo '<option value="'.$lugar['id'].'">'.$lugar['Comunidad'].' - '.$lugar['Estado'].' - '.$lugar['Pais'].'</option>';
+                                                }
+                                            ?>
+                                        </select>
+                                        <button class="btn" type="button" name="addlugarruta" id="addlugarruta">Agregar otro lugar a la ruta</button>
                                         <input class="form-control" type="text" name="categ-descrip" placeholder="Descripcióne de categoria" required="">
                                     </div>
                                     <p class="text-center"><button type="submit" class="btn btn-primary">Agregar categoría</button></p>

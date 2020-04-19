@@ -286,8 +286,8 @@ $(document).ready(function() {
         });
         return false;
     });
-
-
+    
+    $("#addlugarruta").on("click", function() {console.log("the button was pressed...");})
 });
 
 
