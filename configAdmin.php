@@ -545,6 +545,11 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> master
                 <!--==============================Panel Lugares===============================-->
                 <div role="tabpanel" class="tab-pane fade" id="Lugares">
                     <div class="row">
@@ -579,7 +584,11 @@
                                 <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar un lugar</h2>
                                 <form action="process/dellugar.php" method="post" role="form">
                                     <div class="form-group">
+<<<<<<< HEAD
                                         <label>Categorías</label>
+=======
+                                        <label>Lugares</label>
+>>>>>>> master
                                         <select class="form-control" name="lugar-code">
                                             <?php 
                                                 $lugares=  ejecutarSQL::consultar("select * from lugar");
@@ -598,19 +607,30 @@
                         <div class="col-xs-12">
                             <br><br>
                             <div class="panel panel-info">
+<<<<<<< HEAD
                                 <div class="panel-heading text-center"><i class="fa fa-refresh fa-2x"></i><h3>Actualizar categoría</h3></div>
+=======
+                                <div class="panel-heading text-center"><i class="fa fa-refresh fa-2x"></i><h3>Actualizar Lugar</h3></div>
+>>>>>>> master
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead class="">
                                             <tr>
+<<<<<<< HEAD
                                                 <th class="text-center">Código</th>
                                                 <th class="text-center">Nombre</th>
                                                 <th class="text-center">Descripción</th>
+=======
+                                                <th class="text-center">Comunidad</th>
+                                                <th class="text-center">Estado</th>
+                                                <th class="text-center">Pais</th>
+>>>>>>> master
                                                 <th class="text-center">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
+<<<<<<< HEAD
                                               $categorias=  ejecutarSQL::consultar("select * from categoria");
                                               $ui=1;
                                               while($cate=mysql_fetch_array($categorias)){
@@ -624,6 +644,21 @@
                                                               </td>
                                                               <td><input class="form-control" type="text" name="categ-name" maxlength="30" required="" value="'.$cate['Nombre'].'"></td>
                                                               <td><input class="form-control" type="text-area" name="categ-descrip" required="" value="'.$cate['Descripcion'].'"></td>
+=======
+                                              $lugares=  ejecutarSQL::consultar("select * from lugar");
+                                              $ui=1;
+                                              while($cate=mysql_fetch_array($lugares)){
+                                                  echo '
+                                                      <div id="update-lugar">
+                                                        <form method="post" action="process/updatelugar.php" id="res-update-lugar-'.$ui.'">
+                                                          <tr>
+                                                              <td>
+                                                                <input class="form-control" type="hidden" name="categ-code-old" maxlength="9" required="" value="'.$cate['Comunidad'].'">
+                                                                <input class="form-control" type="text" name="categ-code" maxlength="9" required="" value="'.$cate['Comunidad'].'">
+                                                              </td>
+                                                              <td><input class="form-control" type="text" name="categ-name" maxlength="30" required="" value="'.$cate[''].'"></td>
+                                                              <td><input class="form-control" type="text-area" name="categ-descrip" required="" value="'.$cate['Pais'].'"></td>
+>>>>>>> master
                                                               <td class="text-center">
                                                                   <button type="submit" class="btn btn-sm btn-primary button-UC" value="res-update-category-'.$ui.'">Actualizar</button>
                                                                   <div id="res-update-category-'.$ui.'" style="width: 100%; margin:0px; padding:0px;"></div>
@@ -755,6 +790,10 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> master
             </div>
         </div>
     </section>
