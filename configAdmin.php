@@ -544,6 +544,202 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< Updated upstream
+=======
+                <!--==============================Panel Lugares===============================-->
+                <div role="tabpanel" class="tab-pane fade" id="Lugares">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <br><br>
+                            <div id="add-lugar">
+                                <h2 class="text-info text-center"><small><i class="fa fa-plus"></i></small>&nbsp;&nbsp;Agregar categoría</h2>
+                                <form action="process/regLugar.php" method="post" role="form">
+                                    <div class="form-group">
+                                        <label>Comunidad</label>
+                                        <input class="form-control" type="text" name="lugar-com" placeholder="Nombre de la comunidad" maxlength="15" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <input class="form-control" type="text" name="lugar-estado" placeholder="Estado en que se encuentra" maxlength="15"> <!-- required=""-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label>País</label>
+                                        <input class="form-control" type="text" name="lugar-pais" placeholder="País del mismo" maxlength="15" required="">
+                                    </div>
+                                    <p class="text-center">
+                                        <button type="submit" class="btn btn-primary">Agregar lugar</button>
+                                    </p>
+                                    <br>
+                                    <div id="res-form-add-lugar" style="width: 100%; text-align: center; margin: 0;"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <br><br>
+                            <div id="del-lugar">
+                                <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar un lugar</h2>
+                                <form action="process/dellugar.php" method="post" role="form">
+                                    <div class="form-group">
+                                        <label>Lugares</label>
+                                        <select class="form-control" name="lugar-code">
+                                            <?php 
+                                                $lugares=  ejecutarSQL::consultar("select * from lugar");
+                                                while($lugar=mysql_fetch_array($lugares)){
+                                                    echo '<option value="'.$lugar['id'].'">'.$lugar['Comunidad'].' - '.$lugar['Estado'].' - '.$lugar['Pais'].'</option>';
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <p class="text-center"><button type="submit" class="btn btn-danger">Eliminar lugar</button></p>
+                                    <br>
+                                    <div id="res-form-del-cat" style="width: 100%; text-align: center; margin: 0;"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <br><br>
+                            <div class="panel panel-info">
+                                <div class="panel-heading text-center"><i class="fa fa-refresh fa-2x"></i><h3>Actualizar Lugar</h3></div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">Comunidad</th>
+                                                <th class="text-center">Estado</th>
+                                                <th class="text-center">Pais</th>
+                                                <th class="text-center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                              $lugares=  ejecutarSQL::consultar("select * from lugar");
+                                              $ui=1;
+                                              while($cate=mysql_fetch_array($lugares)){
+                                                  echo '
+                                                      <div id="update-lugar">
+                                                        <form method="post" action="process/updatelugar.php" id="res-update-lugar-'.$ui.'">
+                                                          <tr>
+                                                              <td>
+                                                                <input class="form-control" type="hidden" name="categ-code-old" maxlength="9" required="" value="'.$cate['Comunidad'].'">
+                                                                <input class="form-control" type="text" name="categ-code" maxlength="9" required="" value="'.$cate['Comunidad'].'">
+                                                              </td>
+                                                              <td><input class="form-control" type="text" name="categ-name" maxlength="30" required="" value="'.$cate[''].'"></td>
+                                                              <td><input class="form-control" type="text-area" name="categ-descrip" required="" value="'.$cate['Pais'].'"></td>
+                                                              <td class="text-center">
+                                                                  <button type="submit" class="btn btn-sm btn-primary button-UC" value="res-update-category-'.$ui.'">Actualizar</button>
+                                                                  <div id="res-update-category-'.$ui.'" style="width: 100%; margin:0px; padding:0px;"></div>
+                                                              </td>
+                                                          </tr>
+                                                        </form>
+                                                      </div>
+                                                      ';
+                                                  $ui=$ui+1;
+                                              }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                                <!--==============================Panel Horarios===============================-->
+                                <div role="tabpanel" class="tab-pane fade" id="Horarios">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <br><br>
+                            <div id="add-categori">
+                                <h2 class="text-info text-center"><small><i class="fa fa-plus"></i></small>&nbsp;&nbsp;Agregar categoría</h2>
+                                <form action="process/regcategori.php" method="post" role="form">
+                                    <div class="form-group">
+                                        <label>Código</label>
+                                        <input class="form-control" type="text" name="categ-code" placeholder="Código de categoria" maxlength="9" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input class="form-control" type="text" name="categ-name" placeholder="Nombre de categoria" maxlength="30" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Descripción</label>
+                                        <input class="form-control" type="text" name="categ-descrip" placeholder="Descripcióne de categoria" required="">
+                                    </div>
+                                    <p class="text-center"><button type="submit" class="btn btn-primary">Agregar categoría</button></p>
+                                    <br>
+                                    <div id="res-form-add-categori" style="width: 100%; text-align: center; margin: 0;"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <br><br>
+                            <div id="del-categori">
+                                <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar una categoría</h2>
+                                <form action="process/delcategori.php" method="post" role="form">
+                                    <div class="form-group">
+                                        <label>Categorías</label>
+                                        <select class="form-control" name="categ-code">
+                                            <?php 
+                                                $categoriav=  ejecutarSQL::consultar("select * from categoria");
+                                                while($categv=mysql_fetch_array($categoriav)){
+                                                    echo '<option value="'.$categv['CodigoCat'].'">'.$categv['CodigoCat'].' - '.$categv['Nombre'].'</option>';
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <p class="text-center"><button type="submit" class="btn btn-danger">Eliminar categoría</button></p>
+                                    <br>
+                                    <div id="res-form-del-cat" style="width: 100%; text-align: center; margin: 0;"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <br><br>
+                            <div class="panel panel-info">
+                                <div class="panel-heading text-center"><i class="fa fa-refresh fa-2x"></i><h3>Actualizar categoría</h3></div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">Código</th>
+                                                <th class="text-center">Nombre</th>
+                                                <th class="text-center">Descripción</th>
+                                                <th class="text-center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                              $categorias=  ejecutarSQL::consultar("select * from categoria");
+                                              $ui=1;
+                                              while($cate=mysql_fetch_array($categorias)){
+                                                  echo '
+                                                      <div id="update-category">
+                                                        <form method="post" action="process/updateCategory.php" id="res-update-category-'.$ui.'">
+                                                          <tr>
+                                                              <td>
+                                                                <input class="form-control" type="hidden" name="categ-code-old" maxlength="9" required="" value="'.$cate['CodigoCat'].'">
+                                                                <input class="form-control" type="text" name="categ-code" maxlength="9" required="" value="'.$cate['CodigoCat'].'">
+                                                              </td>
+                                                              <td><input class="form-control" type="text" name="categ-name" maxlength="30" required="" value="'.$cate['Nombre'].'"></td>
+                                                              <td><input class="form-control" type="text-area" name="categ-descrip" required="" value="'.$cate['Descripcion'].'"></td>
+                                                              <td class="text-center">
+                                                                  <button type="submit" class="btn btn-sm btn-primary button-UC" value="res-update-category-'.$ui.'">Actualizar</button>
+                                                                  <div id="res-update-category-'.$ui.'" style="width: 100%; margin:0px; padding:0px;"></div>
+                                                              </td>
+                                                          </tr>
+                                                        </form>
+                                                      </div>
+                                                      ';
+                                                  $ui=$ui+1;
+                                              }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
+>>>>>>> Stashed changes
             </div>
         </div>
     </section>
