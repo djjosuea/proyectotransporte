@@ -29,8 +29,8 @@ $(document).ready(function(){
                             tableData += "<td>" + value.hora + "</td>";
                             tableData += "</tr>";
                         });
-                        $("#results_table").append(tableData);
-                        console.log(data);
+                        $("#results_table").html(tableData);
+                        //console.log(data);
                     } else {
                         //modificar interfaz adecuadamente
                         console.log("en realidad nada");
