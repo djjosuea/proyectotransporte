@@ -34,7 +34,8 @@
                     <div class="contenedor-tr">
                         <a href="index.php" class="table-cell-td">Inicio</a>
                         <a href="product.php" class="table-cell-td">Productos</a>
-                        <a href="Horario/horario.php" class="table-cell-td"> Horarios</a>                        <?php
+                       <a href="./form_contacto/contacto.php" class="table-cell-td"> Contacto</a> 
+                                               <?php
                             if(!$_SESSION['nombreAdmin']==""){
                                 echo ' 
                                     <a href="configAdmin.php" class="table-cell-td">Administración</a>

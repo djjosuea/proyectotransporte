@@ -14,13 +14,19 @@ include_once("Horario\conexion.php");
 
 <body id="container-page-index">
 <?php include './inc/navbar.php'; ?>
-<div class="jumbotron" id="jumbotron-index">
-  <h1><span class="tittles-pages-logo">Otech</span> <small style="color: #fff;">Ecuador</small></h1>
+  <h3><span class="tittles-pages-logo">Otech</span> <small style="color: #fff;"></small></h1>
 
-  <div class="container page-header">
+  <br>
+  <br>
+  <br>
+  <type="button" class="btn btn-info" div class ="text-center">
+    <br>
     <div class="row" id="no_selection">Seleccione un origen y un destino</div>
-    <select id="select_origen" style="color:black">
-      <option value="" selected="selected">Origen</option>
+    <br>
+    <select id="select_origen" style="color:black"type="button" class="btn btn-info">
+    <br>
+     
+    <option value="" selected="selected">Origen</option>
       <?php
         $sql="SELECT comunidad, estado, id from lugar order by comunidad";
         $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
@@ -28,10 +34,12 @@ include_once("Horario\conexion.php");
           <option value="<?php echo $rows["id"];?>"><?php echo $rows["comunidad"] . " " . $rows["estado"];?></option>
         <?php } 
       ?>
-          
+        <br>
+        <ul></ul>
+
     </select>
 
-    <select id="select_destino" style="color:black">
+    <select id="select_destino" style="color:black" type="button" class="btn btn-info">Action</button>
       <option value="" selected="selected">Destino</option>
       <?php
         $sql="SELECT comunidad, estado, id from lugar order by comunidad";
@@ -42,7 +50,12 @@ include_once("Horario\conexion.php");
       ?>
     </select>
   </div>
+  <ul>
 
+  
+  </ul>
+  
+  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
   <table class="table">
     <thead class="thead-dark">
       <tr>
