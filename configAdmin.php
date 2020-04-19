@@ -630,7 +630,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-<<<<<<< HEAD
+<<<<<<< HEAD 
                                               $categorias=  ejecutarSQL::consultar("select * from categoria");
                                               $ui=1;
                                               while($cate=mysql_fetch_array($categorias)){
