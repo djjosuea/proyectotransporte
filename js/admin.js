@@ -286,8 +286,52 @@ $(document).ready(function() {
         });
         return false;
     });
+
+    $("#add-horario form").submit(function(e) {
+        e.preventDefault();
+        var ruta = [];
+        $("#add-horario form select[name=lugares-ruta]").each(function() {
+            ruta.push($(this).val()); 
+        });
+        var data = {
+            cooperativa: $("#add-horario form input[name=cooperativa]").val(),
+            horario: $("#add-horario form input[name=horario]").val(),
+            ruta: ruta
+        };
+        
+        var informacion=$('#add-horario form').serialize();
+        var metodo=$('#add-horario form').attr('method');
+        var peticion=$('#add-horario form').attr('action');
+        console.log(informacion);        
+        $.ajax({
+            type: metodo,
+            url: peticion,
+            data:data,
+            beforeSend: function(){
+                $("#res-form-del-horario").html('Añadiendo horario...<br><img src="assets/img/enviando.gif" class="center-all-contens">');
+            },
+            error: function() {
+                $("#res-form-del-horario").html("Ha ocurrido un error en el sistema");
+            },
+            success: function (data) {
+                console.log(data);
+                // $("#res-form-del-horario").html(data);
+            }
+        });
+    })
+
+    $("#addlugarruta").on("click", function() {
+        $("#array-lugares").append($('select[name="lugares-ruta"]:eq('+(length-1)+')').clone());
+        $("#remlugarruta").show();
+    });
     
-    $("#addlugarruta").on("click", function() {console.log("the button was pressed...");})
+    $("#remlugarruta").on("click",function(){        
+        if($('select[name="lugares-ruta"]').length > 2){
+            $('select[name="lugares-ruta"]:eq('+(length-1)+')').remove();
+            $("#remlugarruta").hide();
+        }
+    });
+
 });
 
 
