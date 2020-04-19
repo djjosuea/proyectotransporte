@@ -24,3 +24,4 @@ if(!$lugarCom=="" && !$lugarPais==""){
 }else {
     echo '<img src="assets/img/incorrecto.png" class="center-all-contens"><br><p class="lead text-center">Error los campos no deben de estar vacíos</p>';
 }
+ 
