@@ -33,7 +33,7 @@
                 <div class="contenedor-tabla pull-right">
                     <div class="contenedor-tr">
                         <a href="index.php" class="table-cell-td">Inicio</a>
-                        <a href="product.php" class="table-cell-td">Productos</a>
+                      <!--  <a href="product.php" class="table-cell-td">Productos</a>-->
                        <a href="./form_contacto/contacto.php" class="table-cell-td"> Contacto</a> 
                                                <?php
                             if(!$_SESSION['nombreAdmin']==""){
@@ -58,10 +58,8 @@
                                  ';
                             }else{
                                 echo ' 
-                                    <a href="registration.php" class="table-cell-td">Registro</a>
-                                    <a href="#" class="table-cell-td carrito-button-nav all-elements-tooltip" data-toggle="tooltip" data-placement="bottom" title="Ver carrito de compras">
-                                        <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
-                                    </a>
+                                   
+                                    
                                     <a href="#" class="table-cell-td" data-toggle="modal" data-target=".modal-login">
                                         <i class="fa fa-user"></i>&nbsp;&nbsp;Login
                                     </a>
