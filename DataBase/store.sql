@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-04-2020 a las 05:45:00
+-- Tiempo de generación: 20-04-2020 a las 23:34:05
 -- Versión del servidor: 5.6.25
 -- Versión de PHP: 5.6.11
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 --
 
 INSERT INTO `categoria` (`CodigoCat`, `Nombre`, `Descripcion`) VALUES
-('C1', 'Electrodomésticos', 'Articulos de primera necesidad para el hogar'),
+('C1', 'Electrodomésticos', 'Electrodomésticos'),
 ('C2', 'Multimedia', 'Articulos de entretenimiento y diversión'),
 ('C3', 'Móbiles', 'Teléfonos celulares smartphones');
 
@@ -97,21 +97,55 @@ CREATE TABLE IF NOT EXISTS `detalle` (
 CREATE TABLE IF NOT EXISTS `horario` (
   `id` int(11) NOT NULL,
   `hora` text NOT NULL,
-  `id_ruta` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_ruta` int(11) NOT NULL,
+  `cooperativa` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `horario`
+--
+
+INSERT INTO `horario` (`id`, `hora`, `id_ruta`, `cooperativa`) VALUES
+(1, '01H00 / 02H00 / 03H00 / 05H30 / 09H30 / 11H45 / 12H25', 1, 'Amazonas'),
+(2, '08H30 / 09H30', 2, 'Amazonas'),
+(4, '04H30 / 12H00', 3, 'Amazonas'),
+(5, '01H30 / 04H30 / 06H30 / 07H30 / 15H15 / 17H00', 4, 'Jumandy'),
+(6, '04H30 / 08H00 / 11H00 / 12H15 / 14H30 / 16H45 / 18H00', 5, 'Jumandy');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `lugares`
+-- Estructura de tabla para la tabla `lugar`
 --
 
-CREATE TABLE IF NOT EXISTS `lugares` (
+CREATE TABLE IF NOT EXISTS `lugar` (
   `id` int(11) NOT NULL,
   `Comunidad` text NOT NULL,
   `Estado` text NOT NULL,
   `Pais` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `lugar`
+--
+
+INSERT INTO `lugar` (`id`, `Comunidad`, `Estado`, `Pais`) VALUES
+(1, 'Tena', '', 'Ecuador'),
+(2, 'Quito', '', 'Ecuador'),
+(3, 'Misahualli', '', 'Ecuador'),
+(4, 'Baeza', '', 'Ecuador'),
+(5, 'Loreto', '', 'Ecuador'),
+(6, 'Coca', '', 'Ecuador'),
+(7, 'Guayaquil', '', 'Ecuador'),
+(8, 'Ambato', '', 'Ecuador'),
+(9, 'Puyo', '', 'Ecuador'),
+(10, 'Riobamba', '', 'Ecuador'),
+(11, 'Sacha', '', 'Ecuador'),
+(12, 'Limoncocha', '', 'Ecuador'),
+(13, 'Ponpeya', '', 'Ecuador'),
+(14, 'Chaco', '', 'Ecuador'),
+(15, 'Puerto Murialdo', '', 'Ecuador'),
+(16, 'San Luis', '', 'Ecuador');
 
 -- --------------------------------------------------------
 
@@ -208,6 +242,38 @@ CREATE TABLE IF NOT EXISTS `ruta` (
   `posicion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `ruta`
+--
+
+INSERT INTO `ruta` (`id`, `id_lugar`, `posicion`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 1),
+(4, 1, 1),
+(5, 1, 1),
+(6, 1, 1),
+(7, 1, 1),
+(8, 1, 1),
+(11, 1, 1),
+(1, 2, 2),
+(2, 2, 3),
+(4, 2, 3),
+(2, 3, 1),
+(4, 4, 2),
+(11, 4, 2),
+(5, 5, 2),
+(5, 6, 3),
+(7, 6, 2),
+(11, 6, 3),
+(6, 7, 2),
+(3, 8, 2),
+(9, 8, 1),
+(8, 9, 2),
+(9, 10, 2),
+(10, 11, 2),
+(10, 15, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -260,9 +326,9 @@ ALTER TABLE `horario`
   ADD KEY `id_ruta` (`id_ruta`);
 
 --
--- Indices de la tabla `lugares`
+-- Indices de la tabla `lugar`
 --
-ALTER TABLE `lugares`
+ALTER TABLE `lugar`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -309,12 +375,12 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `horario`
 --
 ALTER TABLE `horario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT de la tabla `lugares`
+-- AUTO_INCREMENT de la tabla `lugar`
 --
-ALTER TABLE `lugares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `lugar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
@@ -354,7 +420,7 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `ruta`
 --
 ALTER TABLE `ruta`
-  ADD CONSTRAINT `ruta_ibfk_1` FOREIGN KEY (`id_lugar`) REFERENCES `lugares` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `ruta_ibfk_1` FOREIGN KEY (`id_lugar`) REFERENCES `lugar` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `venta`
