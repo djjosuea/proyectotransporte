@@ -652,7 +652,7 @@
                                 <form action="process/regHorario.php" method="post" role="form">
                                     <div class="form-group">
                                         <label>Cooperativa</label>
-                                        <input class="form-control" type="text" name="cooperativa" placeholder="Nombre de la cooperativa" maxlength="9" required="">
+                                        <input class="form-control" type="text" name="cooperativa" placeholder="Nombre de la cooperativa" maxlength="15" required="">
                                     </div>
                                     <div class="form-group">
                                         <label>Horario</label>
@@ -694,7 +694,7 @@
                                         <label>Horarios</label>
                                         <select class="form-control" name="horario-code">
                                             <?php 
-                                                $horarios=  ejecutarSQL::consultar(
+                                                $horariosQ=  ejecutarSQL::consultar(
                                                         "SELECT * FROM `horario`
                                                         inner join (
                                                             SELECT  id_origen, id_lugar as id_destino, origen, comunidad as destino, ruta.id as id_ruta from ruta 
@@ -710,7 +710,7 @@
                                                                 select max(posicion) from ruta as r where ruta.id = r.id 
                                                             )
                                                         ) rutas on horario.id_ruta = rutas.id_ruta");
-                                                while($horariov=mysql_fetch_array($horarios)){
+                                                while($horariov=mysql_fetch_array($horariosQ)){
                                                     $optStr = $horariov['cooperativa'].': Desde '.$horariov['origen'].' hasta '.$horariov['destino'].' ('.$horariov['hora'].')';
                                                     if(strlen($optStr) > 70) {
                                                         $optStr = substr($optStr, 0 , 70) . "...";
@@ -729,40 +729,64 @@
                         <div class="col-xs-12">
                             <br><br>
                             <div class="panel panel-info">
-                                <div class="panel-heading text-center"><i class="fa fa-refresh fa-2x"></i><h3>Actualizar categoría</h3></div>
+                                <div class="panel-heading text-center"><i class="fa fa-refresh fa-2x"></i><h3>Actualizar horario</h3></div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead class="">
                                             <tr>
-                                                <th class="text-center">Código</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th class="text-center">Descripción</th>
+                                                <th class="text-center">Cooperativa</th>
+                                                <th class="text-center">Horario</th>
+                                                <th class="text-center">Ruta</th>
                                                 <th class="text-center">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                              $categorias=  ejecutarSQL::consultar("select * from categoria");
+                                              $horarios=  ejecutarSQL::consultar("select * from horario");
                                               $ui=1;
-                                              while($cate=mysql_fetch_array($categorias)){
-                                                  echo '
-                                                      <div id="update-category">
-                                                        <form method="post" action="process/updateCategory.php" id="res-update-category-'.$ui.'">
-                                                          <tr>
-                                                              <td>
-                                                                <input class="form-control" type="hidden" name="categ-code-old" maxlength="9" required="" value="'.$cate['CodigoCat'].'">
-                                                                <input class="form-control" type="text" name="categ-code" maxlength="9" required="" value="'.$cate['CodigoCat'].'">
-                                                              </td>
-                                                              <td><input class="form-control" type="text" name="categ-name" maxlength="30" required="" value="'.$cate['Nombre'].'"></td>
-                                                              <td><input class="form-control" type="text-area" name="categ-descrip" required="" value="'.$cate['Descripcion'].'"></td>
-                                                              <td class="text-center">
-                                                                  <button type="submit" class="btn btn-sm btn-primary button-UC" value="res-update-category-'.$ui.'">Actualizar</button>
-                                                                  <div id="res-update-category-'.$ui.'" style="width: 100%; margin:0px; padding:0px;"></div>
-                                                              </td>
-                                                          </tr>
+                                              while($horario=mysql_fetch_array($horarios)){ ?>
+                                                    <div id="update-horario">
+                                                        <form method="post" action="process/updateHorario.php" id="res-update-horario-<?php echo $ui?>">
+                                                        <tr>
+                                                            <td>
+                                                                <input class="form-control" type="hidden" name="horario-code" required="" value="<?php echo $horario['id']?>">
+                                                                <input class="form-control" type="text" name="horario-coop" maxlength="15" required="" value="<?php echo $horario['cooperativa']?>">
+                                                            </td>
+                                                            <td><input class="form-control" type="text" name="horario-hora" maxlength="100" required="" value="<?php echo $horario['hora']?>"></td>
+                                                            <td>
+                                                                <div id="update-array-lugares-<?php echo $ui?>">
+                                                                    <div id="array-lugares">
+                                                                    <?php
+                                                                        $idDeRuta = $horario['id_ruta'];
+                                                                        $lugaresDeHorario = "SELECT ruta.id, comunidad, estado, pais, posicion, id_lugar FROM `ruta` 
+                                                                                            INNER JOIN `lugar` on ruta.id_lugar = lugar.id where ruta.id = $idDeRuta ORDER BY posicion";
+                                                                        $rutaHorario = ejecutarSQL::consultar($lugaresDeHorario);
+                                                                        while($lugarRuta = mysql_fetch_array($rutaHorario)){?>
+                                                                            <select class="form-control" name="lugares-ruta">
+                                                                                <?php 
+                                                                                    $lugares = ejecutarSQL::consultar("select * from lugar");
+                                                                                    while($lugar=mysql_fetch_array($lugares)){
+                                                                                        if($lugar['id'] == $lugarRuta['id_lugar']){
+                                                                                            echo '<option value="'.$lugar['id'].'" selected="selected">'.$lugar['Comunidad'].' - '.$lugar['Estado'].' - '.$lugar['Pais'].'</option>';
+                                                                                        } else {
+                                                                                            echo '<option value="'.$lugar['id'].'">'.$lugar['Comunidad'].' - '.$lugar['Estado'].' - '.$lugar['Pais'].'</option>';
+                                                                                        }
+                                                                                    }?>
+                                                                            </select>
+                                                                    <?php }?>
+                                                                    </div>
+                                                                    <button class="btn btn-danger" type="button" name="remlugarruta">Remover lugar</button>
+                                                                    <button class="btn" type="button" name="addlugarruta">Agregar otro lugar a la ruta</button>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <button type="submit" class="btn btn-sm btn-primary button-UH" value="res-update-horario-<?php echo $ui?>">Actualizar</button>
+                                                                <div id="res-update-horario-<?php echo $ui?>" style="width: 100%; margin:0px; padding:0px;"></div>
+                                                            </td>
+                                                        </tr>
                                                         </form>
-                                                      </div>
-                                                      ';
+                                                    </div>
+                                                  <?php
                                                   $ui=$ui+1;
                                               }
                                             ?>

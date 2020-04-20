@@ -317,6 +317,20 @@ $(document).ready(function() {
         });
     })
 
+    $("#addlugarruta").on("click", function() {
+        $("#array-lugares").append($('select[name="lugares-ruta"]:eq('+(length-1)+')').clone());
+        $("#remlugarruta").show();
+    });
+    
+    $("#remlugarruta").on("click",function(){        
+        if($('select[name="lugares-ruta"]').length > 2){
+            $('select[name="lugares-ruta"]:eq('+(length-1)+')').remove();
+            if($('select[name="lugares-ruta"]').length <= 2){
+                $("#remlugarruta").hide();
+            }
+        }
+    });
+
     $('#del-horario form').submit(function(e) {
         e.preventDefault();
         var informacion=$('#del-horario form').serialize();
@@ -339,18 +353,59 @@ $(document).ready(function() {
        return false;
     });
 
-    $("#addlugarruta").on("click", function() {
-        $("#array-lugares").append($('select[name="lugares-ruta"]:eq('+(length-1)+')').clone());
-        $("#remlugarruta").show();
-    });
-    
-    $("#remlugarruta").on("click",function(){        
-        if($('select[name="lugares-ruta"]').length > 2){
-            $('select[name="lugares-ruta"]:eq('+(length-1)+')').remove();
-            if($('select[name="lugares-ruta"]').length <= 2){
-                $("#remlugarruta").hide();
-            }
+    $('div[id^=update-array-lugares]').each(function () {
+        if($(this).find('select').length <= 2){
+            $(this).find('button[name="remlugarruta"]').hide();
         }
+        var divLugares = $(this);
+        $(this).find('button[name="addlugarruta"]').on("click",function(){
+            divLugares.find('#array-lugares').append(
+                divLugares.find('select[name="lugares-ruta"]:eq('+(length-1)+')').clone()
+            );
+            divLugares.find("button[name='remlugarruta']").show();
+        });
+        $(this).find('button[name="remlugarruta"]').on("click",function(){
+            divLugares.find('select[name="lugares-ruta"]:eq('+(length-1)+')').remove();
+            if(divLugares.find('select').length <= 2){
+                $(this).hide();
+            }
+        })
+    });
+
+    $('.button-UH').click(function(){
+        var myId = $(this).val();
+        var numId = myId.substr(-1);
+        $('form#'+myId).submit(function(e){
+            e.preventDefault();
+            var ruta = [];
+            $("#update-array-lugares-"+numId+" select[name='lugares-ruta']").each(function() {
+                ruta.push($(this).val());
+            });
+            var formArray = $('form#'+myId).serializeArray() ;
+            var data = {
+                id: formArray.find(e => e.name === "horario-code").value,
+                cooperativa: formArray.find(e => e.name === "horario-coop").value,
+                hora: formArray.find(e => e.name === "horario-hora").value,
+                ruta: ruta
+            };
+
+            var metodo=$('form#'+myId).attr('method');
+            var accion=$('form#'+myId).attr('action');
+            $.ajax({
+                type: metodo,
+                url: accion,
+                data: data,
+                beforeSend: function(){
+                    $("div#"+myId).html('<br><img src="assets/img/Update.gif" class="center-all-contens"><br>Actualizando...');
+                },
+                error: function(){
+                    $("div#"+myId).html("Ha ocurrido un error en el sistema");
+                },
+                success: function(data){
+                    $("div#"+myId).html(data);
+                }
+            })
+        })
     });
 
 });
