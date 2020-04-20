@@ -298,27 +298,46 @@ $(document).ready(function() {
             horario: $("#add-horario form input[name=horario]").val(),
             ruta: ruta
         };
-        
-        var informacion=$('#add-horario form').serialize();
         var metodo=$('#add-horario form').attr('method');
         var peticion=$('#add-horario form').attr('action');
-        console.log(informacion);        
         $.ajax({
             type: metodo,
             url: peticion,
             data:data,
             beforeSend: function(){
-                $("#res-form-del-horario").html('Añadiendo horario...<br><img src="assets/img/enviando.gif" class="center-all-contens">');
+                $("#res-form-add-horario").html('Añadiendo horario...<br><img src="assets/img/enviando.gif" class="center-all-contens">');
             },
             error: function() {
-                $("#res-form-del-horario").html("Ha ocurrido un error en el sistema");
+                $("#res-form-add-horario").html("Ha ocurrido un error en el sistema");
             },
             success: function (data) {
                 console.log(data);
-                // $("#res-form-del-horario").html(data);
+                $("#res-form-add-horario").html(data);
             }
         });
     })
+
+    $('#del-horario form').submit(function(e) {
+        e.preventDefault();
+        var informacion=$('#del-horario form').serialize();
+        var metodo=$('#del-horario form').attr('method');
+        var peticion=$('#del-horario form').attr('action');
+        $.ajax({
+           type: metodo,
+           url: peticion,
+           data:informacion,
+           beforeSend: function(){
+               $("#res-form-del-horario").html('Eliminando Horario...<br><img src="assets/img/enviando.gif" class="center-all-contens">');
+           },
+           error: function() {
+               $("#res-form-del-horario").html("Ha ocurrido un error en el sistema");
+           },
+           success: function (data) {
+               $("#res-form-del-horario").html(data);
+           }
+       });
+       return false;
+    });
 
     $("#addlugarruta").on("click", function() {
         $("#array-lugares").append($('select[name="lugares-ruta"]:eq('+(length-1)+')').clone());
@@ -328,7 +347,9 @@ $(document).ready(function() {
     $("#remlugarruta").on("click",function(){        
         if($('select[name="lugares-ruta"]').length > 2){
             $('select[name="lugares-ruta"]:eq('+(length-1)+')').remove();
-            $("#remlugarruta").hide();
+            if($('select[name="lugares-ruta"]').length <= 2){
+                $("#remlugarruta").hide();
+            }
         }
     });
 

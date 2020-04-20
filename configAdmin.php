@@ -656,7 +656,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Horario</label>
-                                        <input class="form-control" type="text" name="horario" placeholder="¿A qué hora salen buses?" maxlength="30" required="">
+                                        <input class="form-control" type="text" name="horario" placeholder="¿A qué hora salen buses?" maxlength="100" required="">
                                     </div>
                                     <div class="form-group">
                                         <label>Ruta</label>
@@ -679,7 +679,7 @@
                                         <button class="btn btn-danger" type="button" name="remlugarruta" id="remlugarruta" style="display:none">Remover lugar</button>
                                         <button class="btn" type="button" name="addlugarruta" id="addlugarruta">Agregar otro lugar a la ruta</button>
                                     </div>
-                                    <p class="text-center"><button type="submit" class="btn btn-primary">Agregar categoría</button></p>
+                                    <p class="text-center"><button type="submit" class="btn btn-primary">Agregar horario</button></p>
                                     <br>
                                     <div id="res-form-add-horario" style="width: 100%; text-align: center; margin: 0;"></div>
                                 </form>
@@ -687,23 +687,42 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <br><br>
-                            <div id="del-categori">
-                                <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar una categoría</h2>
-                                <form action="process/delcategori.php" method="post" role="form">
+                            <div id="del-horario">
+                                <h2 class="text-danger text-center"><small><i class="fa fa-trash-o"></i></small>&nbsp;&nbsp;Eliminar un horario</h2>
+                                <form action="process/delHorario.php" method="post" role="form">
                                     <div class="form-group">
-                                        <label>Categorías</label>
-                                        <select class="form-control" name="categ-code">
+                                        <label>Horarios</label>
+                                        <select class="form-control" name="horario-code">
                                             <?php 
-                                                $categoriav=  ejecutarSQL::consultar("select * from categoria");
-                                                while($categv=mysql_fetch_array($categoriav)){
-                                                    echo '<option value="'.$categv['CodigoCat'].'">'.$categv['CodigoCat'].' - '.$categv['Nombre'].'</option>';
+                                                $horarios=  ejecutarSQL::consultar(
+                                                        "SELECT * FROM `horario`
+                                                        inner join (
+                                                            SELECT  id_origen, id_lugar as id_destino, origen, comunidad as destino, ruta.id as id_ruta from ruta 
+                                                            inner join lugar on lugar.id = ruta.id_lugar
+                                                            inner join (
+                                                                SELECT id_lugar as id_origen, comunidad as origen, ruta.id from ruta 
+                                                                inner join lugar on lugar.id = ruta.id_lugar
+                                                                where posicion = (
+                                                                    select min(posicion) from ruta as r where ruta.id = r.id 
+                                                                ) 
+                                                            ) tablaOrigen on ruta.id = tablaOrigen.id
+                                                            where posicion = (
+                                                                select max(posicion) from ruta as r where ruta.id = r.id 
+                                                            )
+                                                        ) rutas on horario.id_ruta = rutas.id_ruta");
+                                                while($horariov=mysql_fetch_array($horarios)){
+                                                    $optStr = $horariov['cooperativa'].': Desde '.$horariov['origen'].' hasta '.$horariov['destino'].' ('.$horariov['hora'].')';
+                                                    if(strlen($optStr) > 70) {
+                                                        $optStr = substr($optStr, 0 , 70) . "...";
+                                                    } 
+                                                    echo '<option value="'.$horariov['id'].'">'.$optStr.'</option>';
                                                 }
                                             ?>
                                         </select>
                                     </div>
-                                    <p class="text-center"><button type="submit" class="btn btn-danger">Eliminar categoría</button></p>
+                                    <p class="text-center"><button type="submit" class="btn btn-danger">Eliminar horario</button></p>
                                     <br>
-                                    <div id="res-form-del-cat" style="width: 100%; text-align: center; margin: 0;"></div>
+                                    <div id="res-form-del-horario" style="width: 100%; text-align: center; margin: 0;"></div>
                                 </form>
                             </div>
                         </div>
