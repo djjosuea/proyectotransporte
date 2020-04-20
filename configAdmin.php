@@ -652,7 +652,7 @@
                                 <form action="process/regHorario.php" method="post" role="form">
                                     <div class="form-group">
                                         <label>Cooperativa</label>
-                                        <input class="form-control" type="text" name="cooperativa" placeholder="Nombre de la cooperativa" maxlength="15" required="">
+                                        <input class="form-control" type="text" name="cooperativa" placeholder="Nombre de la cooperativa" maxlength="40" required="">
                                     </div>
                                     <div class="form-group">
                                         <label>Horario</label>
